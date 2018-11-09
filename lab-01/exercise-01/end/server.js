@@ -4,7 +4,7 @@ const http = require('http');
 const morgan = require('morgan');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
-const auth = require('./auth');
+const eoc = require('express-openid-client');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -19,18 +19,13 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(auth.routes({
-  issuer_url: `https://${process.env.AUTH0_DOMAIN}`,
+app.use(eoc.routes({
+  issuer_url: process.env.AUTH0_DOMAIN,
   client_id: process.env.AUTH0_CLIENT_ID,
-  authorizationParams: {
-    scope: 'openid profile email',
-    redirect_uri: `${appUrl}/callback`
-  }
-}))
+  client_url: appUrl
+}));
 
-app.use('/user', auth.protect(), (req, res) => {
-  res.send(`hello ${req.session.user.name}`);
-});
+app.use(eoc.protect());
 
 app.get('/', (req, res) => res.send("hello!"));
 
