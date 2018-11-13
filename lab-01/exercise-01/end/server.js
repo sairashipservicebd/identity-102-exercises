@@ -19,12 +19,7 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(eoc.routes({
-  issuer_url: process.env.AUTH0_DOMAIN,
-  client_id: process.env.AUTH0_CLIENT_ID,
-  client_url: appUrl
-}));
-
+app.use(eoc.routes());
 app.use(eoc.protect());
 
 app.get('/', (req, res) => res.send("hello!"));
