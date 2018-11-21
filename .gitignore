@@ -85,3 +85,6 @@ typings/
 # webstorm/IDEA files
 .idea/
 *.iml
+
+# mac files
+.DS_Store
