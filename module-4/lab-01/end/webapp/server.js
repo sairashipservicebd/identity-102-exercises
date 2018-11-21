@@ -15,31 +15,36 @@ app.set('view engine', 'ejs');
 app.use(morgan('combined'));
 
 app.use(session({
-    name: 'identity102-lab',
-    secret: process.env.COOKIE_SECRET,
+  name: 'identity102-lab',
+  secret: process.env.COOKIE_SECRET,
 }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(eoc.routes({
-    issuer_url: process.env.AUTH0_DOMAIN,
-    client_id: process.env.AUTH0_CLIENT_ID,
-    client_url: appUrl
+  issuer_url: process.env.AUTH0_DOMAIN,
+  client_id: process.env.AUTH0_CLIENT_ID,
+  client_url: appUrl,
+  authorizationParams: {
+    response_type: 'id_token token',
+    audience: process.env.AUTH0_API_IDENTIFIER,
+    scope: `openid profile email ${process.env.AUTH0_API_SCOPES}`
+  },
 }));
 
 app.get('/', (req, res) => {
-    res.render('home', { user: req.session.user });
+  res.render('home', {user: req.session.user});
 });
 
 app.get('/user', eoc.protect(), (req, res) => {
-    res.render('user', { user: req.session.user });
+  res.render('user', {user: req.session.user});
 });
 
 app.get('/logout', (req, res) => {
-    req.session = null;
-    res.redirect('/');
+  req.session = null;
+  res.redirect('/');
 });
 
 http.createServer(app).listen(process.env.PORT, () => {
-    console.log(`listening on ${appUrl}`);
+  console.log(`listening on ${appUrl}`);
 });
