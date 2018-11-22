@@ -47,7 +47,7 @@ app.get('/expenses', eoc.protect(), (req, res) => {
     headers: {
       authorization: `Bearer ${req.session.accessToken}`
     },
-    json:true
+    json: true
   }).then((data) => {
     res.render('expenses', {
       user: req.session.user,
