@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
+const jwtAuthz = require('express-jwt-authz');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -21,7 +22,7 @@ app.use(jwt({
   algorithms: ['RS256']
 }));
 
-app.get('/', (req, res) => {
+app.get('/', jwtAuthz(['reports:read']), (req, res) => {
   res.send([
     {
       date: new Date(),
