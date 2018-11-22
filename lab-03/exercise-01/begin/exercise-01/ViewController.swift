@@ -10,12 +10,12 @@ import UIKit
 import Auth0
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     @IBAction func actionLogin(_ sender: Any) {
         print("Log In")
     }
