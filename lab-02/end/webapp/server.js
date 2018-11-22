@@ -29,7 +29,7 @@ app.use(eoc.routes({
   authorizationParams: {
     response_type: 'id_token code',
     audience: process.env.AUTH0_API_IDENTIFIER,
-    scope: `openid profile email ${process.env.AUTH0_API_SCOPES}`
+    scope: `openid profile email reports:read`
   },
 }));
 
