@@ -23,10 +23,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(eoc.routes({
-  issuer_base_url: process.env.AUTH0_DOMAIN,
-  client_id: process.env.AUTH0_CLIENT_ID,
-  client_secret: process.env.AUTH0_CLIENT_SECRET,
-  base_url: appUrl,
   authorizationParams: {
     response_type: 'code id_token',
     audience: 'https://expenses-api',
@@ -45,7 +41,7 @@ app.get('/user', eoc.protect(), (req, res) => {
 app.get('/expenses', eoc.protect(), (req, res) => {
   request(process.env.API_URL, {
     headers: {
-      authorization: `Bearer ${req.session.accessToken}`
+      authorization: `Bearer ${req.session.tokens.access_token}`
     },
     json: true
   }).then((data) => {
