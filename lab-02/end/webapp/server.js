@@ -24,9 +24,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(eoc.routes({
   issuer_url: process.env.AUTH0_DOMAIN,
   client_id: process.env.AUTH0_CLIENT_ID,
+  client_secret: process.env.AUTH0_CLIENT_SECRET,
   client_url: appUrl,
   authorizationParams: {
-    response_type: 'id_token token',
+    response_type: 'id_token code',
     audience: process.env.AUTH0_API_IDENTIFIER,
     scope: `openid profile email ${process.env.AUTH0_API_SCOPES}`
   },

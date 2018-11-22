@@ -22,10 +22,18 @@ app.use(jwt({
 }));
 
 app.get('/', (req, res) => {
-  res.send([{
-    description: 'Pizza for Coding Dojo session.',
-    value: 102,
-  }]);
+  res.send([
+    {
+      date: new Date(),
+      description: 'Pizza for a Coding Dojo session.',
+      value: 102,
+    },
+    {
+      date: new Date(),
+      description: 'Coffee for a Coding Dojo session.',
+      value: 42,
+    }
+  ]);
 });
 
 http.createServer(app).listen(process.env.PORT, () => {
