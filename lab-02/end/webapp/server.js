@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const eoc = require('express-openid-client');
+const request = require('request-promise');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -22,14 +23,14 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(eoc.routes({
-  issuer_url: process.env.AUTH0_DOMAIN,
+  issuer_base_url: process.env.AUTH0_DOMAIN,
   client_id: process.env.AUTH0_CLIENT_ID,
   client_secret: process.env.AUTH0_CLIENT_SECRET,
-  client_url: appUrl,
+  base_url: appUrl,
   authorizationParams: {
-    response_type: 'id_token code',
-    audience: process.env.AUTH0_API_IDENTIFIER,
-    scope: `openid profile email reports:read`
+    response_type: 'code id_token',
+    audience: 'https://expenses-api',
+    scope: 'openid profile email reports:read'
   },
 }));
 
@@ -39,6 +40,23 @@ app.get('/', (req, res) => {
 
 app.get('/user', eoc.protect(), (req, res) => {
   res.render('user', {user: req.session.user});
+});
+
+app.get('/expenses', eoc.protect(), (req, res) => {
+  request(process.env.API_URL, {
+    headers: {
+      authorization: `Bearer ${req.session.accessToken}`
+    },
+    json:true
+  }).then((data) => {
+    res.render('expenses', {
+      user: req.session.user,
+      expenses: data
+    });
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  });
 });
 
 app.get('/logout', (req, res) => {
