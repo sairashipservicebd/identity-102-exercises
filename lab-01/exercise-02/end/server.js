@@ -24,11 +24,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(eoc.routes());
 
 app.get('/', (req, res) => {
-  res.render('home', { user: req.user });
+  res.render('home', { user: req.openid && req.openid.user });
 });
 
 app.get('/user', eoc.protect(), (req, res) => {
-  res.render('user', { user: req.user });
+  res.render('user', { user: req.openid && req.openid.user });
 });
 
 app.get('/logout', (req, res) => {

@@ -25,11 +25,11 @@ app.use(eoc.routes());
 app.use(eoc.protect());
 
 app.get('/', (req, res) => {
-  res.render('home', { user: req.user });
+  res.render('home', { user: req.openid && req.openid.user });
 });
 
 app.get('/user', (req, res) => {
-  res.render('user', { user: req.user });
+  res.render('user', { user: req.openid && req.openid.user });
 });
 
 app.get('/logout', (req, res) => {
