@@ -26,7 +26,7 @@ app.use(eoc.routes({
   authorizationParams: {
     response_type: 'code id_token',
     audience: 'https://expenses-api',
-    scope: 'openid profile email reports:read'
+    scope: 'openid profile email reports:read offline_access'
   },
 }));
 
@@ -38,20 +38,24 @@ app.get('/user', eoc.protect(), (req, res) => {
   res.render('user', {user: req.session.user});
 });
 
-app.get('/expenses', eoc.protect(), (req, res) => {
-  request(process.env.API_URL, {
+app.get('/expenses', eoc.protect(), async (req, res) => {
+  const {expires_at} = req.session.tokens;
+
+  if (expires_at * 1000 <= Date.now()) {
+    const {refresh_token} = req.session.tokens;
+    res.send('you will need a refresh token');
+  }
+
+  const expenses = await request(process.env.API_URL, {
     headers: {
       authorization: `Bearer ${req.session.tokens.access_token}`
     },
     json: true
-  }).then((data) => {
-    res.render('expenses', {
-      user: req.session.user,
-      expenses: data
-    });
-  }).catch((err) => {
-    console.log(err);
-    res.status(500).send(err);
+  });
+
+  res.render('expenses', {
+    user: req.session.user,
+    expenses
   });
 });
 
