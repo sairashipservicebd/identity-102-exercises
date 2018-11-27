@@ -1,5 +1,5 @@
 {
-  "name": "webapp",
+  "name": "begin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "express-openid-client": "^1.0.0",
+    "express-openid-client": "github:auth0/express-openid-client",
     "morgan": "^1.9.1"
   }
 }
