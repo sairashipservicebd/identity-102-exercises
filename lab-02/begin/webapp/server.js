@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const eoc = require('express-openid-client');
+const request = require('request-promise');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -30,6 +31,18 @@ app.get('/', (req, res) => {
 app.get('/user', eoc.protect(), (req, res) => {
   res.render('user', { user: req.openid && req.openid.user });
 });
+
+app.get('/expenses', eoc.protect(), async (req, res) => {
+  const expenses = await request(process.env.API_URL, {
+    json: true
+  });
+
+  res.render('expenses', {
+    user: req.openid && req.openid.user,
+    expenses
+  });
+});
+
 
 app.get('/logout', (req, res) => {
   req.session = null;
