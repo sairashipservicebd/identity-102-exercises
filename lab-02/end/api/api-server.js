@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const jwt = require('express-jwt');
@@ -17,7 +18,7 @@ app.use(jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: process.env.AUTH0_API_IDENTIFIER,
+  audience: process.env.API_AUDIENCE,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
 }));

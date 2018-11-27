@@ -20,41 +20,35 @@ app.use(session({
   secret: process.env.COOKIE_SECRET,
 }));
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(eoc.routes({
   authorizationParams: {
     response_type: 'code id_token',
-    audience: 'https://expenses-api',
+    audience: process.env.API_AUDIENCE,
     scope: 'openid profile email reports:read offline_access'
   },
 }));
 
 app.get('/', (req, res) => {
-  res.render('home', {user: req.session.user});
+  res.render('home', { user: req.openid && req.openid.user });
 });
 
 app.get('/user', eoc.protect(), (req, res) => {
-  res.render('user', {user: req.session.user});
+  res.render('user', { user: req.openid && req.openid.user });
 });
 
 app.get('/expenses', eoc.protect(), async (req, res) => {
-  const {expires_at} = req.session.tokens;
-
-  if (expires_at * 1000 <= Date.now()) {
-    const {refresh_token} = req.session.tokens;
-    res.send('you will need a refresh token');
-  }
-
+  console.log(req.openid.tokens.access_token);
   const expenses = await request(process.env.API_URL, {
     headers: {
-      authorization: `Bearer ${req.session.tokens.access_token}`
+      authorization: `Bearer ${req.openid.tokens.access_token}`
     },
     json: true
   });
 
   res.render('expenses', {
-    user: req.session.user,
+    user: req.openid && req.openid.user,
     expenses
   });
 });
