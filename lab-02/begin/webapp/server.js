@@ -43,7 +43,6 @@ app.get('/expenses', eoc.protect(), async (req, res) => {
   });
 });
 
-
 app.get('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
