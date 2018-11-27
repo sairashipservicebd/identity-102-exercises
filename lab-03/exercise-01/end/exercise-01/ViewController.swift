@@ -20,12 +20,13 @@ class ViewController: UIViewController {
         Auth0
             .webAuth()
             .scope("openid profile")
-            .audience("https://yourtenant.auth0.com/userinfo")
             .logging(enabled: true)
-            .start { result in
-                switch(result) {
-                case .success(let credentials):
-                    print("Authentication Success: \(credentials)")
+            .start { response in
+                switch(response) {
+                case .success(let result):
+                    print("Authentication Success")
+                    print("Access Token: \(result.accessToken ?? "No Access Token Found")")
+                    print("ID Token: \(result.idToken ?? "No ID Token Found")")
                 case .failure(let error):
                     print("Authentication Failed: \(error)")
                 }
