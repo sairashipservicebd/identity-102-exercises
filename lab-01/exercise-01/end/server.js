@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(eoc.routes());
 app.use(eoc.protect());
 
-app.get('/', (req, res) => res.send("hello!"));
+app.get('/', (req, res) => res.send('hello!'));
 
 http.createServer(app).listen(process.env.PORT, () => {
   console.log(`listening on ${appUrl}`);

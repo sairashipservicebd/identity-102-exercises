@@ -13,7 +13,7 @@
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
-    "express-openid-client": "^1.1.0",
+    "express-openid-client": "github:auth0/express-openid-client",
     "morgan": "^1.9.1"
   }
 }

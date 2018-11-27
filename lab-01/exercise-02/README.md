@@ -1,6 +1,8 @@
 By doing `app.use(eoc.protected())` you are requiring authentication in every route.
 
-The purpose of this exercise is to allow the user to request the homepage even if when they are not logged in yet.
+The purpose of this exercise is to allow the user to request the homepage even if they are not logged in yet.
+
+You need the `.env` file as in the previous exercise.
 
 Remove the `app.use(eoc.protected())` line from server.js and change the `/user` route to this:
 
