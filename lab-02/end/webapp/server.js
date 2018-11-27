@@ -39,7 +39,6 @@ app.get('/user', eoc.protect(), (req, res) => {
 });
 
 app.get('/expenses', eoc.protect(), async (req, res) => {
-  console.log(req.openid.tokens.access_token);
   const expenses = await request(process.env.API_URL, {
     headers: {
       authorization: `Bearer ${req.openid.tokens.access_token}`
