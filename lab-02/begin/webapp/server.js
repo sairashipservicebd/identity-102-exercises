@@ -22,7 +22,13 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(eoc.routes());
+app.use(eoc.routes({
+  authorizationParams: {
+    response_type: 'code id_token',
+    audience: process.env.API_AUDIENCE,
+    scope: 'openid profile email'
+  },
+}));
 
 app.get('/', (req, res) => {
   res.render('home', { user: req.openid && req.openid.user });
@@ -34,6 +40,9 @@ app.get('/user', eoc.protect(), (req, res) => {
 
 app.get('/expenses', eoc.protect(), async (req, res) => {
   const expenses = await request(process.env.API_URL, {
+    headers: {
+      authorization: `Bearer ${req.openid.tokens.access_token}`
+    },
     json: true
   });
 
