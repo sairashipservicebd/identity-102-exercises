@@ -50,8 +50,11 @@ class ViewController: UIViewController {
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             print(response)
+            if let data = data {
+                print(String(data: data, encoding: .utf8))
+            }
         }
-        task.resume()
+        task.resume() // Exectue the request
     }
     
 }
