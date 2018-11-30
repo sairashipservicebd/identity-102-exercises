@@ -4,8 +4,8 @@ const http = require('http');
 const morgan = require('morgan');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
-const eoc = require('express-openid-client');
 const request = require('request-promise');
+const {auth, requiresAuth} = require('express-openid-connect');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -22,33 +22,24 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(eoc.routes({
-  authorizationParams: {
-    response_type: 'code id_token',
-    audience: process.env.API_AUDIENCE,
-    scope: 'openid profile email'
-  },
-}));
+app.use(auth({required: false}));
 
 app.get('/', (req, res) => {
   res.render('home', { user: req.openid && req.openid.user });
 });
 
-app.get('/user', eoc.protect(), (req, res) => {
+app.get('/user', requiresAuth(), (req, res) => {
   res.render('user', { user: req.openid && req.openid.user });
 });
 
-app.get('/expenses', eoc.protect(), async (req, res) => {
+app.get('/expenses', requiresAuth(), async (req, res) => {
   const expenses = await request(process.env.API_URL, {
-    headers: {
-      authorization: `Bearer ${req.openid.tokens.access_token}`
-    },
     json: true
   });
 
   res.render('expenses', {
     user: req.openid && req.openid.user,
-    expenses
+    expenses,
   });
 });
 
