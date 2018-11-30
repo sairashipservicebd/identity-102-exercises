@@ -27,7 +27,7 @@ app.use(auth({
   authorizationParams: {
     response_type: 'code id_token',
     audience: process.env.API_AUDIENCE,
-    scope: 'openid profile email reports:read'
+    scope: 'openid profile email reports:read offline_access'
   },
 }));
 

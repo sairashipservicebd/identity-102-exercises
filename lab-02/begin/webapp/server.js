@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.use(morgan('combined'));
 
 app.use(session({
-  name: 'identity102-lab',
+  name: 'identity102-lab-02',
   secret: process.env.COOKIE_SECRET,
 }));
 
