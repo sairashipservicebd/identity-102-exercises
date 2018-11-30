@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "José F. Romaniello <jfromaniello@gmail.com> (https://joseoncode.com)",
@@ -14,7 +15,7 @@
     "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "express-openid-client": "github:auth0/express-openid-client",
+    "express-openid-connect": "^0.1.0",
     "morgan": "^1.9.1"
   }
 }
