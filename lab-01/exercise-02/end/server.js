@@ -4,7 +4,7 @@ const http = require('http');
 const morgan = require('morgan');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
-const eoc = require('express-openid-client');
+const { auth, requiresAuth } = require('express-openid-connect');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -21,19 +21,14 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(eoc.routes());
+app.use(auth({ required: false }));
 
 app.get('/', (req, res) => {
   res.render('home', { user: req.openid && req.openid.user });
 });
 
-app.get('/user', eoc.protect(), (req, res) => {
+app.get('/user', requiresAuth(), (req, res) => {
   res.render('user', { user: req.openid && req.openid.user });
-});
-
-app.get('/logout', (req, res) => {
-  req.session = null;
-  res.redirect('/');
 });
 
 http.createServer(app).listen(process.env.PORT, () => {

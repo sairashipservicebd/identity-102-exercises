@@ -82,7 +82,7 @@ typings/
 
 # End of https://www.gitignore.io/api/node
 
-# webstorm/IDEA files
+# webstorm files
 .idea/
 *.iml
 
