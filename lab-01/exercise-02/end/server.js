@@ -14,12 +14,12 @@ app.set('view engine', 'ejs');
 
 app.use(morgan('combined'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(session({
-  name: 'identity102-lab',
+  name: 'identity102-l01-e02',
   secret: process.env.COOKIE_SECRET,
 }));
-
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(auth({ required: false }));
 

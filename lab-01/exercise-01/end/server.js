@@ -13,7 +13,7 @@ const app = express();
 app.use(morgan('combined'));
 
 app.use(session({
-  name: 'identity102-lab',
+  name: 'identity102-l01-e01',
   secret: process.env.COOKIE_SECRET,
 }));
 
