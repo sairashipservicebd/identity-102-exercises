@@ -21,8 +21,8 @@ class ViewController: UIViewController {
     @IBAction func actionLogin(_ sender: Any) {
         Auth0
             .webAuth()
-            .scope("openid profile")
-            .audience("https://fcauth.eu.auth0.com/userinfo")
+            .scope("openid profile reports:read")
+            .audience("https://expenses-api")
             .logging(enabled: true)
             .start { response in
                 switch(response) {
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             return
         }
         
-        let url = URL(string: "https://fcauth.eu.auth0.com/userinfo")! // Your protected API URL
+        let url = URL(string: "http://localhost:3001")! // Your protected API URL
         var request = URLRequest(url: url)
         request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         request.log()
