@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  exercise-01
+//  exercise-02
 //
 //  Created by Martin Walsh on 22/11/2018.
 //  Copyright © 2018 Auth0. All rights reserved.
