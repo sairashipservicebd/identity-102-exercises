@@ -1,0 +1,23 @@
+{
+  "name": "begin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "José F. Romaniello <jfromaniello@gmail.com> (https://joseoncode.com)",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.1.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-openid-connect": "0.0.2",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
+}
