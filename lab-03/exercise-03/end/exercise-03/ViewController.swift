@@ -11,6 +11,8 @@ import Auth0
 
 class ViewController: UIViewController {
     
+    private var refreshToken: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +21,7 @@ class ViewController: UIViewController {
     @IBAction func actionLogin(_ sender: Any) {
         Auth0
             .webAuth()
-            .scope("openid profile")
+            .scope("openid profile offline_access")
             .logging(enabled: true)
             .start { response in
                 switch(response) {
@@ -27,6 +29,7 @@ class ViewController: UIViewController {
                     print("Authentication Success")
                     print("Access Token: \(result.accessToken ?? "No Access Token Found")")
                     print("ID Token: \(result.idToken ?? "No ID Token Found")")
+                    self.refreshToken = result.refreshToken
                 case .failure(let error):
                     print("Authentication Failed: \(error)")
                 }
@@ -34,8 +37,25 @@ class ViewController: UIViewController {
     }
     
     @IBAction func actionRefresh(_ sender: Any) {
-        print("Refresh Token")
+        guard let refreshToken = self.refreshToken else {
+            print("No Refresh Token found")
+            return
+        }
+        
+        Auth0
+            .authentication()
+            .logging(enabled: true)
+            .renew(withRefreshToken: refreshToken)
+            .start { response in
+                switch(response) {
+                case .success(let result):
+                    print("Refresh Success")
+                    print("Access Token: \(result.accessToken ?? "No Access Token Found")")
+                case .failure(let error):
+                    print("Authentication Failed: \(error)")
+                }
+        }
+        
     }
-    
 }
 
