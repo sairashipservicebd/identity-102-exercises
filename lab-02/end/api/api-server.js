@@ -10,6 +10,7 @@ const app = express();
 app.use(auth(strategies.openid()));
 
 app.get('/', requiredScopes('reports:read'), (req, res) => {
+  console.log(new Date(req.auth.claims.iat * 1000));
   res.send([
     {
       date: new Date(),
