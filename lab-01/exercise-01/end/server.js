@@ -10,6 +10,8 @@ const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
 app.use(morgan('combined'));
 
 app.use(session({
@@ -21,7 +23,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(auth());
 
-app.get('/', (req, res) => res.send('hello!'));
+app.get('/', (req, res) => {
+  res.render('home');
+});
+
+app.get('/expenses', (req, res) => {
+  res.render('expenses', {
+    expenses: [
+      {
+        date: new Date(),
+        description: 'Coffee for a Coding Dojo session.',
+        value: 42,
+      }
+    ]
+  });
+});
 
 http.createServer(app).listen(process.env.PORT, () => {
   console.log(`listening on ${appUrl}`);
