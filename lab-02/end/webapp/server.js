@@ -39,7 +39,7 @@ app.get('/user', requiresAuth(), (req, res) => {
   res.render('user', { user: req.openid && req.openid.user });
 });
 
-app.get('/expenses', requiresAuth(), async (req, res) => {
+app.get('/expenses', requiresAuth(), errorHandler(async (req, res) => {
   const tokenSet = req.openid.tokens;
 
   const expenses = await request(process.env.API_URL, {
@@ -51,14 +51,23 @@ app.get('/expenses', requiresAuth(), async (req, res) => {
 
   res.render('expenses', {
     user: req.openid && req.openid.user,
-    expenses
+    expenses,
   });
-});
+}));
 
 app.get('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
 });
+
+function errorHandler(fn) {
+  return (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => {
+      console.error(err.stack);
+      res.status(500).send(err);
+    });
+  };
+}
 
 http.createServer(app).listen(process.env.PORT, () => {
   console.log(`listening on ${appUrl}`);
