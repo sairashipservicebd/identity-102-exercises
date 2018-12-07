@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(auth({
   required: false,
+  auth0Logout: true,
   authorizationParams: {
     response_type: 'code id_token',
     audience: process.env.API_AUDIENCE,

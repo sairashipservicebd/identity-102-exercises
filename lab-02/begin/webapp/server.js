@@ -22,7 +22,10 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(auth({required: false}));
+app.use(auth({
+  required: false,
+  auth0Logout: true
+}));
 
 app.get('/', (req, res) => {
   res.render('home', { user: req.openid && req.openid.user });
