@@ -15,7 +15,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-  res.render('home');
+  res.render('home',  { user: req.openid && req.openid.user });
 });
 
 app.get('/expenses', (req, res) => {
