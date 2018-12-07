@@ -19,9 +19,11 @@ app.use(session({
   secret: process.env.COOKIE_SECRET,
 }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(auth({
+  auth0Logout: true
+}));
 
-app.use(auth());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.render('home',  { user: req.openid && req.openid.user });
