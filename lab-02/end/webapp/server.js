@@ -6,6 +6,7 @@ const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const request = require('request-promise');
 const {auth, requiresAuth} = require('express-openid-connect');
+const { Issuer } = require('openid-client');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
@@ -28,7 +29,7 @@ app.use(auth({
   authorizationParams: {
     response_type: 'code id_token',
     audience: process.env.API_AUDIENCE,
-    scope: 'openid profile email reports:read offline_access'
+    scope: 'openid profile email read:reports offline_access'
   },
 }));
 
@@ -40,35 +41,45 @@ app.get('/user', requiresAuth(), (req, res) => {
   res.render('user', { user: req.openid && req.openid.user });
 });
 
-app.get('/expenses', requiresAuth(), errorHandler(async (req, res) => {
-  const tokenSet = req.openid.tokens;
+app.get('/expenses', requiresAuth(), async (req, res, next) => {
+  try {
+    let tokenSet = req.openid.tokens;
+    if(tokenSet.expired()) {
+      const issuer = await Issuer.discover(process.env.ISSUER_BASE_URL);
+      const client = new issuer.Client({
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET
+      });
+      tokenSet = await client.refresh(tokenSet);
+      tokenSet.refresh_token = req.openid.tokens.refresh_token;
+      req.openid.tokens = tokenSet;
+    }
 
-  const expenses = await request(process.env.API_URL, {
-    headers: {
-      authorization: `Bearer ${tokenSet.access_token}`
-    },
-    json: true
-  });
+    const expenses = await request(process.env.API_URL, {
+      headers: {
+        authorization: `Bearer ${tokenSet.access_token}`
+      },
+      json: true
+    });
 
-  res.render('expenses', {
-    user: req.openid && req.openid.user,
-    expenses,
-  });
-}));
+    res.render('expenses', {
+      user: req.openid && req.openid.user,
+      expenses,
+    });
+  } catch(err) {
+    next(err);
+  }
+});
 
 app.get('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
 });
 
-function errorHandler(fn) {
-  return (req, res, next) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => {
-      console.error(err.stack);
-      res.status(500).send(err);
-    });
-  };
-}
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send(err);
+});
 
 http.createServer(app).listen(process.env.PORT, () => {
   console.log(`listening on ${appUrl}`);
