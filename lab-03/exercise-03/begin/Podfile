@@ -7,5 +7,6 @@ target 'exercise-03' do
 
   # Pods for exercise-03
   pod 'Auth0', '~> 1.13'
+  pod 'JWTDecode', '~> 2.1'
 
 end

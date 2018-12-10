@@ -13,7 +13,10 @@
 		5B54BE2321A6CD9F007F8821 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B54BE2221A6CD9F007F8821 /* Assets.xcassets */; };
 		5B54BE2621A6CD9F007F8821 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B54BE2421A6CD9F007F8821 /* LaunchScreen.storyboard */; };
 		5B54BE3221A6DDC4007F8821 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B54BE3121A6DDC4007F8821 /* Auth0.plist */; };
-		5B7680E421B15021001F46C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7680E321B15021001F46C2 /* Extensions.swift */; };
+		5BB694DE21BE7EF000280BA2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694DA21BE7EF000280BA2 /* Extensions.swift */; };
+		5BB694DF21BE7EF000280BA2 /* TokenValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694DB21BE7EF000280BA2 /* TokenValidators.swift */; };
+		5BB694E021BE7EF000280BA2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694DC21BE7EF000280BA2 /* Utils.swift */; };
+		5BB694E121BE7EF000280BA2 /* ValidatorJWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694DD21BE7EF000280BA2 /* ValidatorJWT.swift */; };
 		5F9BBE3CB89789C908DE3FCE /* Pods_exercise_02.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48854AF6D4617624FB4D879E /* Pods_exercise_02.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +30,10 @@
 		5B54BE2521A6CD9F007F8821 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B54BE2721A6CD9F007F8821 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B54BE3121A6DDC4007F8821 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = SOURCE_ROOT; };
-		5B7680E321B15021001F46C2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5BB694DA21BE7EF000280BA2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5BB694DB21BE7EF000280BA2 /* TokenValidators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidators.swift; sourceTree = "<group>"; };
+		5BB694DC21BE7EF000280BA2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		5BB694DD21BE7EF000280BA2 /* ValidatorJWT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorJWT.swift; sourceTree = "<group>"; };
 		AA6A9C290AFE90D84F3F2C39 /* Pods-exercise-02.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exercise-02.debug.xcconfig"; path = "Target Support Files/Pods-exercise-02/Pods-exercise-02.debug.xcconfig"; sourceTree = "<group>"; };
 		F4130F55C33A9B7DBD4BEA95 /* Pods-exercise-02.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exercise-02.release.xcconfig"; path = "Target Support Files/Pods-exercise-02/Pods-exercise-02.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +88,6 @@
 		5B54BE1A21A6CD9F007F8821 /* exercise-02 */ = {
 			isa = PBXGroup;
 			children = (
-				5B7680E321B15021001F46C2 /* Extensions.swift */,
 				5B54BE3121A6DDC4007F8821 /* Auth0.plist */,
 				5B54BE1B21A6CD9F007F8821 /* AppDelegate.swift */,
 				5B54BE1D21A6CD9F007F8821 /* ViewController.swift */,
@@ -90,8 +95,20 @@
 				5B54BE2221A6CD9F007F8821 /* Assets.xcassets */,
 				5B54BE2421A6CD9F007F8821 /* LaunchScreen.storyboard */,
 				5B54BE2721A6CD9F007F8821 /* Info.plist */,
+				5BB694D921BE7EF000280BA2 /* Extras */,
 			);
 			path = "exercise-02";
+			sourceTree = "<group>";
+		};
+		5BB694D921BE7EF000280BA2 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				5BB694DA21BE7EF000280BA2 /* Extensions.swift */,
+				5BB694DB21BE7EF000280BA2 /* TokenValidators.swift */,
+				5BB694DC21BE7EF000280BA2 /* Utils.swift */,
+				5BB694DD21BE7EF000280BA2 /* ValidatorJWT.swift */,
+			);
+			path = Extras;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +191,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-exercise-02/Pods-exercise-02-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
+				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -181,6 +199,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,8 +237,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B54BE1E21A6CD9F007F8821 /* ViewController.swift in Sources */,
-				5B7680E421B15021001F46C2 /* Extensions.swift in Sources */,
+				5BB694E121BE7EF000280BA2 /* ValidatorJWT.swift in Sources */,
+				5BB694DF21BE7EF000280BA2 /* TokenValidators.swift in Sources */,
 				5B54BE1C21A6CD9F007F8821 /* AppDelegate.swift in Sources */,
+				5BB694DE21BE7EF000280BA2 /* Extensions.swift in Sources */,
+				5BB694E021BE7EF000280BA2 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

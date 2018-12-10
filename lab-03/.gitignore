@@ -24,7 +24,6 @@ DerivedData
 # Bundler
 .bundle
 
-Pods/
 Carthage/Checkouts
 !Carthage/Build
 # Xcode
