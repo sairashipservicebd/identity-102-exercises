@@ -1,15 +1,15 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
-const { auth, strategies, requiredScopes } = require('express-oauth2-bearer');
+const { auth, requiredScopes } = require('express-oauth2-bearer');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
 const app = express();
 
-app.use(auth(strategies.openid()));
+app.use(auth());
 
-app.get('/', requiredScopes('reports:read'), (req, res) => {
+app.get('/', requiredScopes('read:reports'), (req, res) => {
   console.log(new Date(req.auth.claims.iat * 1000));
   res.send([
     {
