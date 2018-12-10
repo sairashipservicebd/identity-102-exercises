@@ -13,6 +13,10 @@
 		5B54BE2321A6CD9F007F8821 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B54BE2221A6CD9F007F8821 /* Assets.xcassets */; };
 		5B54BE2621A6CD9F007F8821 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B54BE2421A6CD9F007F8821 /* LaunchScreen.storyboard */; };
 		5B54BE3221A6DDC4007F8821 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B54BE3121A6DDC4007F8821 /* Auth0.plist */; };
+		5BB694D521BE7A7400280BA2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694D121BE7A7400280BA2 /* Extensions.swift */; };
+		5BB694D621BE7A7400280BA2 /* TokenValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694D221BE7A7400280BA2 /* TokenValidators.swift */; };
+		5BB694D721BE7A7400280BA2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694D321BE7A7400280BA2 /* Utils.swift */; };
+		5BB694D821BE7A7400280BA2 /* ValidatorJWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB694D421BE7A7400280BA2 /* ValidatorJWT.swift */; };
 		70CC982C87A4F2BB15994E32 /* Pods_exercise_01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C25370468CBC20DDB504B9F8 /* Pods_exercise_01.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +29,10 @@
 		5B54BE2521A6CD9F007F8821 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B54BE2721A6CD9F007F8821 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B54BE3121A6DDC4007F8821 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = SOURCE_ROOT; };
+		5BB694D121BE7A7400280BA2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5BB694D221BE7A7400280BA2 /* TokenValidators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidators.swift; sourceTree = "<group>"; };
+		5BB694D321BE7A7400280BA2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		5BB694D421BE7A7400280BA2 /* ValidatorJWT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorJWT.swift; sourceTree = "<group>"; };
 		8D3B5A55706D0BC50513308D /* Pods-exercise-01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exercise-01.release.xcconfig"; path = "Target Support Files/Pods-exercise-01/Pods-exercise-01.release.xcconfig"; sourceTree = "<group>"; };
 		C25370468CBC20DDB504B9F8 /* Pods_exercise_01.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_exercise_01.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AC5BFA24944D5195AE2646 /* Pods-exercise-01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exercise-01.debug.xcconfig"; path = "Target Support Files/Pods-exercise-01/Pods-exercise-01.debug.xcconfig"; sourceTree = "<group>"; };
@@ -87,8 +95,20 @@
 				5B54BE2221A6CD9F007F8821 /* Assets.xcassets */,
 				5B54BE2421A6CD9F007F8821 /* LaunchScreen.storyboard */,
 				5B54BE2721A6CD9F007F8821 /* Info.plist */,
+				5BB694D021BE7A7400280BA2 /* Extras */,
 			);
 			path = "exercise-01";
+			sourceTree = "<group>";
+		};
+		5BB694D021BE7A7400280BA2 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				5BB694D121BE7A7400280BA2 /* Extensions.swift */,
+				5BB694D221BE7A7400280BA2 /* TokenValidators.swift */,
+				5BB694D321BE7A7400280BA2 /* Utils.swift */,
+				5BB694D421BE7A7400280BA2 /* ValidatorJWT.swift */,
+			);
+			path = Extras;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +213,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-exercise-01/Pods-exercise-01-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
+				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -200,6 +221,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,7 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BB694D721BE7A7400280BA2 /* Utils.swift in Sources */,
 				5B54BE1E21A6CD9F007F8821 /* ViewController.swift in Sources */,
+				5BB694D521BE7A7400280BA2 /* Extensions.swift in Sources */,
+				5BB694D621BE7A7400280BA2 /* TokenValidators.swift in Sources */,
+				5BB694D821BE7A7400280BA2 /* ValidatorJWT.swift in Sources */,
 				5B54BE1C21A6CD9F007F8821 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

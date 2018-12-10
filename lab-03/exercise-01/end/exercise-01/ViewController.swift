@@ -27,6 +27,7 @@ class ViewController: UIViewController {
                     print("Authentication Success")
                     print("Access Token: \(result.accessToken ?? "No Access Token Found")")
                     print("ID Token: \(result.idToken ?? "No ID Token Found")")
+                    print("Token Valid: \(isTokenValid(result.idToken!))")
                 case .failure(let error):
                     print("Authentication Failed: \(error)")
                 }
