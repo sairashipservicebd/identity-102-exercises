@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     @IBAction func actionLogin(_ sender: Any) {
         Auth0
             .webAuth()
-            .scope("openid profile reports:read")
+            .scope("openid profile read:reports")
             .audience("https://expenses-api")
             .logging(enabled: true)
             .start { response in
