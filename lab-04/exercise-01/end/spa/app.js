@@ -6,7 +6,6 @@ window.onload = async function() {
   const userFullname = document.getElementById('user-fullname');
   const userEmail = document.getElementById('user-email');
 
-
   const auth0Client = new Auth0Login({
     domain: 'labs102-bk.auth0.com',
     client_id: 'AT6YZLCKQu1llsqoE55TfEBHsITyvZIf'
