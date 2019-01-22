@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>SPA Lab</title>
+    <link rel="shortcut icon" href="https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/favicon.png">
+    <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>Welcome to the SPA lab.</h1>
+          <button id="log-in" class="btn btn-primary">Login</button>
+          <button id="log-out" class="btn btn-primary" style="display: none">Logout</button>
+          <div id="profile" style="display: none;">
+            <ul style="margin-top: 25px; list-style: none; padding-left: 0;">
+              <li><img id="profile-picture" style="max-width: 50px; border-radius: 50%"></li>
+              <li>Name: <span id="user-fullname"></span></li>
+              <li>Email: <span id="user-email"></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/@auth0/auth0-login@0.0.1-alpha.12/dist/auth0-login.production.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
