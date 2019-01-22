@@ -1,5 +1,8 @@
 window.onload = async function() {
   const loginButton = document.getElementById('log-in');
+  const expensesContainer = document.getElementById('expenses-container');
+  const expensesList = document.getElementById('expenses-list');
+  const fetchTokenButton = document.getElementById('fetch-token');
   const logoutButton = document.getElementById('log-out');
   const profile = document.getElementById('profile');
   const profilePicture = document.getElementById('profile-picture');
@@ -19,6 +22,7 @@ window.onload = async function() {
     userEmail.innerText = user.email;
     profile.style.display = 'block';
     loginButton.style.display = 'none';
+    fetchTokenButton.style.display = 'inline-block';
     logoutButton.style.display = 'inline-block';
     window.history.replaceState({}, document.title, '/');
   }
@@ -36,5 +40,35 @@ window.onload = async function() {
       client_id: 'AT6YZLCKQu1llsqoE55TfEBHsITyvZIf',
       returnTo: 'http://localhost:5000/'
     });
-  }
+  };
+
+  // configuring the fetch access token button
+  fetchTokenButton.onclick = async () => {
+    const expensesAPIOptions = {
+      audience: 'https://expenses-api',
+      scope: 'read:reports',
+      silentOnly: false,
+      redirect_uri: 'http://localhost:5000/#callback'
+    };
+
+    const token = await auth0Client.getToken(expensesAPIOptions);
+
+    const response = await fetch('http://localhost:3001/', {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+
+    const expenses = await response.json();
+
+    expenses.forEach(expense => {
+      const newItem = document.createElement('li');
+      const newItemDescription = document.createTextNode(`$ ${expense.value.toFixed(2)} - ${expense.description}`);
+      newItem.appendChild(newItemDescription);
+      expensesList.appendChild(newItem);
+    });
+    expensesContainer.style.display = 'block';
+  };
 };

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const http = require('http');
 const { auth, requiredScopes } = require('express-oauth2-bearer');
@@ -7,6 +8,7 @@ const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
 
 const app = express();
 
+app.use(cors());
 app.use(auth());
 
 app.get('/', requiredScopes('read:reports'), (req, res) => {
