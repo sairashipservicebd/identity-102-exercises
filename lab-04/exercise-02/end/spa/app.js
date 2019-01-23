@@ -16,15 +16,11 @@ window.onload = async function() {
 
   if (window.location.hash === '#callback') {
     await auth0Client.handleRedirectCallback();
-    const user = await auth0Client.getUser();
-    profilePicture.src = user.picture;
-    userFullname.innerText = user.name;
-    userEmail.innerText = user.email;
-    profile.style.display = 'block';
-    loginButton.style.display = 'none';
-    fetchTokenButton.style.display = 'inline-block';
-    logoutButton.style.display = 'inline-block';
+    await showProfile();
     window.history.replaceState({}, document.title, '/');
+  } else {
+    await auth0Client.init();
+    await showProfile();
   }
 
   // configuring the login button
@@ -72,4 +68,19 @@ window.onload = async function() {
     });
     expensesContainer.style.display = 'block';
   };
+
+  // function to render the user profile on the page
+  async function showProfile() {
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    if (!isAuthenticated) return;
+
+    const user = await auth0Client.getUser();
+    profilePicture.src = user.picture;
+    userFullname.innerText = user.name;
+    userEmail.innerText = user.email;
+    profile.style.display = 'block';
+    loginButton.style.display = 'none';
+    fetchTokenButton.style.display = 'inline-block';
+    logoutButton.style.display = 'inline-block';
+  }
 };
