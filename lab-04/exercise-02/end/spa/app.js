@@ -51,6 +51,7 @@ window.onload = async function() {
       redirect_uri: 'http://localhost:5000/#callback'
     };
 
+    await auth0Client.loginWithPopup(expensesAPIOptions);
     const token = await auth0Client.getToken(expensesAPIOptions);
 
     const response = await fetch('http://localhost:3001/', {
