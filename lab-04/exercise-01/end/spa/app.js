@@ -47,7 +47,7 @@ async function loadView(viewName, container) {
 
 async function restrictAccess() {
   if (!await auth0Client.isAuthenticated()) {
-    await loadView('#home');
+    await loadView('#home', content);
     return false;
   }
   return true;
