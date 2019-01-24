@@ -1,14 +1,7 @@
 (async function() {
-  const signInButton = document.getElementById('sign-in');
-  const summary = document.getElementById('summary');
   const expensesCount = document.getElementById('expenses-count');
   const expensesTotal = document.getElementById('expenses-total');
-
-  signInButton.onclick = async () => {
-    await auth0Client.loginWithRedirect({
-      redirect_uri: 'http://localhost:5000/#callback'
-    });
-  };
+  const summary = document.getElementById('summary');
 
   const response = await fetch('http://localhost:3001/total');
 

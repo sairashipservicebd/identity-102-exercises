@@ -1,4 +1,5 @@
 const content = document.getElementById('content');
+const navbar = document.getElementById('navbar-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 
 // configuring the Auth0 library
@@ -18,29 +19,30 @@ window.onload = async function() {
   }
 
   const authenticated = await auth0Client.isAuthenticated();
+  await loadView('#navbar', navbar);
 
   if (requestedView === '' && !authenticated) requestedView = '#sign-in';
   if (requestedView === '' && authenticated) requestedView = '#profile';
   if (requestedView === '#sign-in' && authenticated) requestedView = '#profile';
   if (requestedView === '#callback' && authenticated) requestedView = '#profile';
   if (requestedView === '#callback' && !authenticated) requestedView = '#profile';
-  await loadView(requestedView);
+  await loadView(requestedView, content);
 };
 
-async function loadView(viewName) {
-  content.innerHTML = '';
+async function loadView(viewName, container) {
+  container.innerHTML = '';
   viewName = viewName.substring(1);
   window.history.replaceState({}, document.title, `/#${viewName}`);
   const response = await fetch(`/views/${viewName}.html`);
-  content.innerHTML = await response.text();
+  container.innerHTML = await response.text();
 
   var scriptTag = document.createElement('script');
   scriptTag.src = `/scripts/${viewName}.js`;
 
-  content.appendChild(scriptTag);
+  container.appendChild(scriptTag);
 
   loadingIndicator.style.display = 'none';
-  content.style.display = 'block';
+  container.style.display = 'block';
 }
 
 async function restrictAccess() {
