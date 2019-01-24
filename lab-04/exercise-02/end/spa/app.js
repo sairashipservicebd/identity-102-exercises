@@ -1,4 +1,6 @@
 window.onload = async function() {
+  const content = document.getElementById('content');
+  const loadingIndicator = document.getElementById('loading-indicator');
   const loginButton = document.getElementById('log-in');
   const expensesContainer = document.getElementById('expenses-container');
   const expensesList = document.getElementById('expenses-list');
@@ -72,7 +74,11 @@ window.onload = async function() {
   // function to render the user profile on the page
   async function showProfile() {
     const isAuthenticated = await auth0Client.isAuthenticated();
-    if (!isAuthenticated) return;
+    if (!isAuthenticated) {
+      content.style.display = 'block';
+      loadingIndicator.style.display = 'none';
+      return;
+    }
 
     const user = await auth0Client.getUser();
     profilePicture.src = user.picture;
@@ -82,5 +88,7 @@ window.onload = async function() {
     loginButton.style.display = 'none';
     fetchTokenButton.style.display = 'inline-block';
     logoutButton.style.display = 'inline-block';
+    content.style.display = 'block';
+    loadingIndicator.style.display = 'none';
   }
 };
