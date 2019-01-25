@@ -45,7 +45,7 @@ async function loadView(viewName, container) {
   container.style.display = 'block';
 }
 
-async function restrictAccess() {
+async function allowAccess() {
   if (!await auth0Client.isAuthenticated()) {
     await loadView('#home', content);
     return false;

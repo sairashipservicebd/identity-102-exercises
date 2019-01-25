@@ -1,5 +1,5 @@
 (async function() {
-  if (!await restrictAccess()) return;
+  if (!await allowAccess()) return;
 
   const profilePicture = document.getElementById('profile-picture');
   const userFullname = document.getElementById('user-fullname');
