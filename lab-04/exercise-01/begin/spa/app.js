@@ -2,7 +2,6 @@ const content = document.getElementById('content');
 const navbar = document.getElementById('navbar-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 
-
 window.onload = async function() {
   let requestedView = window.location.hash;
 
