@@ -2,10 +2,9 @@ const content = document.getElementById('content');
 const navbar = document.getElementById('navbar-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 
-// configuring the Auth0 library
 const auth0Client = new Auth0Login({
-  domain: 'labs102-bk.auth0.com',
-  client_id: 'AT6YZLCKQu1llsqoE55TfEBHsITyvZIf'
+  domain: '{YOUR-AUTH0-DOMAIN}',
+  client_id: '{YOUR-AUTH0-CLIENT-ID}'
 });
 
 window.onload = async function() {
@@ -21,11 +20,8 @@ window.onload = async function() {
   const authenticated = await auth0Client.isAuthenticated();
   await loadView('#navbar', navbar);
 
-  if (requestedView === '' && !authenticated) requestedView = '#home';
-  if (requestedView === '' && authenticated) requestedView = '#profile';
-  if (requestedView === '#home' && authenticated) requestedView = '#profile';
-  if (requestedView === '#callback' && authenticated) requestedView = '#profile';
-  if (requestedView === '#callback' && !authenticated) requestedView = '#profile';
+  if (!authenticated) requestedView = '#home';
+  else if (authenticated) requestedView = '#profile';
   await loadView(requestedView, content);
 };
 
