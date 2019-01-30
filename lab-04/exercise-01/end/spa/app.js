@@ -3,8 +3,8 @@ const navbar = document.getElementById('navbar-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 
 const auth0Client = new Auth0Login({
-  domain: 'identity-labs-102.auth0.com',
-  client_id: 'GygAB1UZD7vgDXxop4VTfxq0I9ZzxX0v'
+  domain: '{YOUR-AUTH0-DOMAIN}',
+  client_id: '{YOUR-AUTH0-CLIENT-ID}'
 });
 
 window.onload = async function() {
