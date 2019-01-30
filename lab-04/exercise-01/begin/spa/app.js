@@ -7,6 +7,7 @@ window.onload = async function() {
 
   await loadView('#navbar', navbar);
 
+  const authenticated = false;
   if (!authenticated) requestedView = '#home';
   else if (authenticated) requestedView = '#profile';
   await loadView(requestedView, content);
