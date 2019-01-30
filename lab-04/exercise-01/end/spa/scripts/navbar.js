@@ -8,10 +8,9 @@
     });
   };
 
-  // making the logout button terminate the session at Auth0
   logOutButton.onclick = () => {
     auth0Client.logout({
-      client_id: 'AT6YZLCKQu1llsqoE55TfEBHsITyvZIf',
+      client_id: '{YOUR-AUTH0-CLIENT-ID}',
       returnTo: 'http://localhost:5000/'
     });
   };
