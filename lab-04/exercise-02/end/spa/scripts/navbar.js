@@ -10,7 +10,6 @@
 
   logOutButton.onclick = () => {
     auth0Client.logout({
-      client_id: '{YOUR-AUTH0-CLIENT-ID}',
       returnTo: 'http://localhost:5000/'
     });
   };
