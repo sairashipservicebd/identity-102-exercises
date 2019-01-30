@@ -18,10 +18,11 @@ window.onload = async function() {
   }
 
   const authenticated = await auth0Client.isAuthenticated();
-  await loadView('#navbar', navbar);
 
   if (!authenticated) requestedView = '#home';
   else if (authenticated) requestedView = '#profile';
+
+  await loadView('#navbar', navbar);
   await loadView(requestedView, content);
 };
 

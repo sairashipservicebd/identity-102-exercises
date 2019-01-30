@@ -5,11 +5,12 @@ const loadingIndicator = document.getElementById('loading-indicator');
 window.onload = async function() {
   let requestedView = window.location.hash;
 
-  await loadView('#navbar', navbar);
-
   const authenticated = false;
+
   if (!authenticated) requestedView = '#home';
   else if (authenticated) requestedView = '#profile';
+
+  await loadView('#navbar', navbar);
   await loadView(requestedView, content);
 };
 
