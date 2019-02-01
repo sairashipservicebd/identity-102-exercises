@@ -3,8 +3,8 @@ const navbar = document.getElementById('navbar-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 
 const auth0Client = new Auth0Login({
-  domain: '{YOUR-AUTH0-DOMAIN}',
-  client_id: '{YOUR-AUTH0-CLIENT-ID}'
+  domain: 'identity-labs-102.auth0.com',
+  client_id: 'GygAB1UZD7vgDXxop4VTfxq0I9ZzxX0v'
 });
 
 window.onload = async function() {
@@ -17,12 +17,18 @@ window.onload = async function() {
     await auth0Client.init();
   }
 
-  const authenticated = await auth0Client.isAuthenticated();
-
-  if (!authenticated) requestedView = '#home';
-  else if (authenticated) requestedView = '#profile';
-
   await loadView('#navbar', navbar);
+
+  window.location.hash = requestedView;
+};
+
+window.onhashchange = async function() {
+  let requestedView = window.location.hash;
+
+  if (requestedView !== '#home' && requestedView !== '#expenses') {
+    requestedView = '#home'
+  }
+
   await loadView(requestedView, content);
 };
 
