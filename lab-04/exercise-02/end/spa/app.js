@@ -17,12 +17,18 @@ window.onload = async function() {
     await auth0Client.init();
   }
 
-  const authenticated = await auth0Client.isAuthenticated();
-
-  if (!authenticated) requestedView = '#home';
-  else if (authenticated) requestedView = '#expenses';
-
   await loadView('#navbar', navbar);
+
+  window.location.hash = requestedView;
+};
+
+window.onhashchange = async function() {
+  let requestedView = window.location.hash;
+
+  if (requestedView !== '#home' && requestedView !== '#expenses') {
+    requestedView = '#home'
+  }
+
   await loadView(requestedView, content);
 };
 

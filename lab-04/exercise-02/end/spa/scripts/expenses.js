@@ -1,19 +1,11 @@
 (async function() {
   if (!await allowAccess()) return;
 
-  const profilePicture = document.getElementById('profile-picture');
-  const userFullname = document.getElementById('user-fullname');
-  const userEmail = document.getElementById('user-email');
-
-  const user = await auth0Client.getUser();
-  profilePicture.src = user.picture;
-  userFullname.innerText = user.name;
-  userEmail.innerText = user.email;
-
   const consentNeeded = document.getElementById('consent-needed');
   const expensesDiv = document.getElementById('expenses-container');
   const expensesList = document.getElementById('expenses-list');
   const loadExpesesButton = document.getElementById('load-expenses');
+  const loadingExpenses = document.getElementById('loading-expenses');
 
   async function loadExpenses(accesstoken) {
     const response = await fetch('http://localhost:3001/', {
@@ -35,6 +27,7 @@
       expensesList.appendChild(newItem);
     });
 
+    loadingExpenses.style.display = 'none';
     consentNeeded.style.display = 'none';
     loadExpesesButton.style.display = 'none';
     expensesDiv.style.display = 'block';
@@ -53,6 +46,7 @@
   } catch (err) {
     consentNeeded.style.display = 'block';
     loadExpesesButton.style.display = 'inline-block';
+    loadingExpenses.style.display = 'none';
   }
 
   loadExpesesButton.onclick = async () => {
