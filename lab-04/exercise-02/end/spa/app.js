@@ -20,7 +20,7 @@ window.onload = async function() {
   const authenticated = await auth0Client.isAuthenticated();
 
   if (!authenticated) requestedView = '#home';
-  else if (authenticated) requestedView = '#profile';
+  else if (authenticated) requestedView = '#expenses';
 
   await loadView('#navbar', navbar);
   await loadView(requestedView, content);
