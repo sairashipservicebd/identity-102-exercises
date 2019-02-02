@@ -1,4 +1,6 @@
 (async function() {
+  const profilePicture = document.getElementById('profile-picture');
+  const userFullname = document.getElementById('user-fullname');
   const logInButton = document.getElementById('log-in');
   const logOutButton = document.getElementById('log-out');
 
@@ -15,6 +17,13 @@
   };
 
   const isAuthenticated = await auth0Client.isAuthenticated();
-  if (isAuthenticated) logOutButton.style.display = 'inline-block';
-  else logInButton.style.display = 'inline-block';
+  if (isAuthenticated) {
+    const user = await auth0Client.getUser();
+    profilePicture.src = user.picture;
+    userFullname.innerText = user.name;
+
+    logOutButton.style.display = 'inline-block';
+  } else {
+    logInButton.style.display = 'inline-block';
+  }
 })();
