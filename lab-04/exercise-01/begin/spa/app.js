@@ -13,7 +13,7 @@ window.onload = async function() {
 window.onhashchange = async function() {
   let requestedView = window.location.hash;
 
-  if (requestedView !== '#home') {
+  if (requestedView !== '#home' && requestedView !== '#expenses') {
     requestedView = '#home'
   }
 
