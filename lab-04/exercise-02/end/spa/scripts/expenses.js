@@ -18,7 +18,7 @@
     await loadExpenses(accessToken);
   } catch (err) {
     if (err.error !== 'consent_required') {
-      alert('An error occurred while fetching the access token. Check the browser logs.');
+      alert('Error while fetching access token. Check browser logs.');
       return console.log(err);
     }
     loadExpensesButton.onclick = async () => {
@@ -45,7 +45,7 @@
       displayExpenses(expenses);
     } catch (err) {
       console.log(err);
-      alert('An error occurred while fetching the expenses. Check the browser logs.');
+      alert('Error while fetching expenses. Check browser logs.');
     }
   }
 
