@@ -2,19 +2,19 @@ const content = document.getElementById('content');
 const navbar = document.getElementById('navbar-container');
 const loadingIndicator = document.getElementById('loading-indicator');
 
-const auth0Client = new Auth0Login({
-  domain: '{YOUR-AUTH0-DOMAIN}',
-  client_id: '{YOUR-AUTH0-CLIENT-ID}'
-});
+let auth0Client;
 
 window.onload = async function() {
   let requestedView = window.location.hash;
 
+  auth0Client = await createAuth0Client({
+    domain: '{YOUR-AUTH0-DOMAIN}',
+    client_id: '{YOUR-AUTH0-CLIENT-ID}'
+  });
+
   if (requestedView === '#callback') {
     await auth0Client.handleRedirectCallback();
     window.history.replaceState({}, document.title, '/');
-  } else {
-    await auth0Client.init();
   }
 
   await loadView('#navbar', navbar);
