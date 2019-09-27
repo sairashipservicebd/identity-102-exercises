@@ -16,7 +16,6 @@
     "express": "^4.16.4",
     "express-openid-connect": "^0.4.0",
     "morgan": "^1.9.1",
-    "openid-client": "^2.4.5",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
   }
