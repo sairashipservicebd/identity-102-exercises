@@ -3,7 +3,6 @@ const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
 const session = require('cookie-session');
-const bodyParser = require('body-parser');
 const request = require('request-promise');
 const {auth, requiresAuth} = require('express-openid-connect');
 
@@ -20,7 +19,7 @@ app.use(session({
   secret: process.env.COOKIE_SECRET,
 }));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(auth({
   required: false,
