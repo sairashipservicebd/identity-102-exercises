@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
+
 const session = require('cookie-session');
-const bodyParser = require('body-parser');
 const { auth } = require('express-openid-connect');
 
 const appUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT}`;
@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 
 app.use(morgan('combined'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
   name: 'identity102-l01-e01',
