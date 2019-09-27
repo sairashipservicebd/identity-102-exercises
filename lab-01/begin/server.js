@@ -11,8 +11,6 @@ app.set('view engine', 'ejs');
 
 app.use(morgan('combined'));
 
-app.use(express.urlencoded({ extended: false }));
-
 app.get('/', (req, res) => {
   res.render('home',  { user: req.openid && req.openid.user });
 });
