@@ -1,1 +1,1 @@
-These are the exercises for the hands on labs. Follow the instructions in the Google Doc
+These are the exercises for the [hands-on Identity Labs](https://auth0.com/docs/identity-labs/).
